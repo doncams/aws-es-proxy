@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e -x
+
+apk add --no-cache curl
+
+curl -L --retry 5 -o /	bin/aws-es-proxy https://github.com/abutaha/aws-es-proxy/releases/download/v${AWSESPROXY_VERSION}/aws-es-proxy-${AWSESPROXY_VERSION}-linux-amd64
+
+addgroup awsesproxy
+adduser -D -H -G awsesproxy awsesproxy
+
+chmod +x /bin/aws-es-proxy
+
+mv /resources/entrypoint.sh /bin/entrypoint.sh
